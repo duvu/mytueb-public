@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "sprodomxxx"
+  },
+  "targets": {
+    "sprodomxxx": {
+      "hosting": {
+        "mytube": [
+          "sprodomxxx"
+        ]
+      }
+    }
+  }
+}
