@@ -1,0 +1,10 @@
+.x-container {
+  display: flex;
+  height: 100%;
+  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  .form-add-video{
+    width: 50%;
+  }
+}

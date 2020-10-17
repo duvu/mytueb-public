@@ -5,6 +5,7 @@ import { YoutubeRoutingModule } from './youtube-routing.module';
 import { YoutubeComponent } from './youtube.component';
 import {YouTubePlayerModule} from "@angular/youtube-player";
 import {FlexModule} from "@angular/flex-layout";
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import {FlexModule} from "@angular/flex-layout";
         CommonModule,
         YoutubeRoutingModule,
         YouTubePlayerModule,
-        FlexModule
+        SharedModule
     ]
 })
 export class YoutubeModule { }

@@ -1,12 +1,17 @@
-<form [formGroup]="addVideoForm">
-    <mat-form-field appearance="outline">
-        <mat-label i18n="@@videoId">Video Id</mat-label>
-        <input matInput formControlName="videoId" placeholder="Video Id">
-    </mat-form-field>
+<div class="x-container">
+    <form [formGroup]="addVideoForm" class="form-add-video">
+        <div fxLayout="column" fxLayoutGap="16px">
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@videoId">Video Id</mat-label>
+                <input matInput formControlName="videoId" placeholder="Video Id">
+            </mat-form-field>
 
-    <mat-form-field appearance="outline">
-        <mat-label i18n="@@notes">Notes</mat-label>
-        <textarea matInput formControlName="notes" placeholder="Notes"></textarea>
-    </mat-form-field>
-    <button mat-flat-button (click)="save()">Save</button>
-</form>
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@notes">Notes</mat-label>
+                <textarea matInput formControlName="notes" rows="10" placeholder="Notes"></textarea>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="save()">Save</button>
+        </div>
+    </form>
+</div>
+

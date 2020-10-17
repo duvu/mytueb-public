@@ -6,6 +6,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {MatSidenavModule} from "@angular/material/sidenav";
 
 
 
@@ -17,7 +18,9 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatSelectModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    FlexLayoutModule,
+    MatSidenavModule
   ],
   exports: [
     MatFormFieldModule,
@@ -26,6 +29,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    FlexLayoutModule,
+    MatSidenavModule
   ]
 })
 export class SharedModule { }

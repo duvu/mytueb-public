@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">
     <button mat-icon-button routerLink="/"><mat-icon>home</mat-icon></button>
     <span class="spacer"></span>
+    <button mat-button routerLink="/man/c/add-video" *ngIf="auth.user | async as user">Add Video</button>
     <button mat-button routerLink="/account">Login</button>
 </mat-toolbar>
