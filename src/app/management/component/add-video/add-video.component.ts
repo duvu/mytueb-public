@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AngularFireDatabase} from "@angular/fire/database";
+import {AngularFireAuth} from "@angular/fire/auth";
+import {MyTubeVideo} from "../../../models/my-tube-video";
 
 @Component({
   selector: 'app-add-video',
@@ -9,7 +11,9 @@ import {AngularFireDatabase} from "@angular/fire/database";
 })
 export class AddVideoComponent implements OnInit {
   addVideoForm: FormGroup;
-  constructor(private fb: FormBuilder, private db: AngularFireDatabase) {
+  constructor(private fb: FormBuilder,
+              private db: AngularFireDatabase,
+              public auth: AngularFireAuth) {
     this.addVideoForm = this.fb.group({
       videoId: [[], null],
       videoUrl: [[], null],
@@ -35,8 +39,16 @@ export class AddVideoComponent implements OnInit {
       myNotes: this.addVideoForm.get('myNotes')!.value,
       notesAuthor: this.addVideoForm.get('notesAuthor')!.value,
       addedDate: Date.now()
-    };
-    const itemRef = this.db.list('MyFavoriteYoutubeVideos');
+    } as MyTubeVideo;
+    this.auth.user.subscribe(user => {
+      const uid = user.uid;
+      this.saveToUserDB(uid, object);
+    });
+  }
+
+  private saveToUserDB(uid: string, object: MyTubeVideo) {
+    const itemRef = this.db.list('MyFavoriteYoutubeVideos/' + uid);
     itemRef.push(object);
+
   }
 }

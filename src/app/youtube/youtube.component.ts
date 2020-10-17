@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/database";
 import { findIndex } from 'lodash-es';
 import {MyTubeVideo} from "../models/my-tube-video";
+import {AngularFireAuth} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-youtube',
@@ -16,13 +17,17 @@ export class YoutubeComponent implements OnInit {
   iFrameElement: HTMLElement;
 
 
-  constructor(db: AngularFireDatabase) {
-    db.list<MyTubeVideo>('MyFavoriteYoutubeVideos').valueChanges().subscribe(
-        (videoList: MyTubeVideo[]) => {
-          this.videos = videoList;
-          this.selected = videoList[0];
-        }
-    );
+  constructor(db: AngularFireDatabase, private auth: AngularFireAuth) {
+    this.auth.user.subscribe(user => {
+      const uid = user.uid;
+      db.list<MyTubeVideo>('MyFavoriteYoutubeVideos/' + uid).valueChanges().subscribe(
+          (videoList: MyTubeVideo[]) => {
+            this.videos = videoList;
+            this.selected = videoList[0];
+          }
+      );
+    });
+
   }
 
   ngOnInit(): void {

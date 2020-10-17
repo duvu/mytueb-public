@@ -8,10 +8,11 @@ import {SharedModule} from "../shared/shared.module";
 import {AngularFireModule} from "@angular/fire";
 import {environment} from "../../environments/environment";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { ListVideoComponent } from './component/list-video/list-video.component';
 
 
 @NgModule({
-  declarations: [ManagementComponent, AddVideoComponent],
+  declarations: [ManagementComponent, AddVideoComponent, ListVideoComponent],
   imports: [
     CommonModule,
     ManagementRoutingModule,

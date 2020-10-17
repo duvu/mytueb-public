@@ -7,6 +7,10 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 
@@ -20,7 +24,11 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     MatButtonModule,
     MatIconModule,
     FlexLayoutModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   exports: [
     MatFormFieldModule,
@@ -30,7 +38,11 @@ import {MatSidenavModule} from "@angular/material/sidenav";
     MatButtonModule,
     MatIconModule,
     FlexLayoutModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class SharedModule { }
