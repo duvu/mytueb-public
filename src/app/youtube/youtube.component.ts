@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/database";
 import { findIndex } from 'lodash-es';
 import {MyTubeVideo} from "../models/my-tube-video";
-import {$e} from "codelyzer/angular/styles/chars";
 
 @Component({
   selector: 'app-youtube',
@@ -14,6 +13,7 @@ export class YoutubeComponent implements OnInit {
   videos: MyTubeVideo[];
   selected: MyTubeVideo;
   player: YT.Player;
+  iFrameElement: HTMLElement;
 
 
   constructor(db: AngularFireDatabase) {
@@ -38,6 +38,8 @@ export class YoutubeComponent implements OnInit {
 
   onPlayerReady($event: YT.PlayerEvent) {
     this.player = $event.target;
+    this.iFrameElement = this.player.getIframe();
+    console.log('iFrame', this.iFrameElement);
     this.play();
   }
 

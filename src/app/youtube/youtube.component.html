@@ -2,16 +2,16 @@
     <mat-sidenav mode="side" opened position="end">
         <div *ngFor="let video of videos">
             <div (click)="selectVideo(video)">
-                <span>Video: </span>
-                <span>{{video.videoId}}</span>
+                <span>{{video?.videoTitle || video?.videoId}}</span>
             </div>
         </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <youtube-player [showBeforeIframeApiLoads]="false"
                 [videoId]="selected?.videoId"
-                (ready)="onPlayerReady($event)" (stateChange)="onChanges($event)"
-        ></youtube-player>
+                (ready)="onPlayerReady($event)" (stateChange)="onChanges($event)"></youtube-player>
+
+        <span>{{selected.videoTitle}}</span>
         <p>{{selected?.notes}}</p>
     </mat-sidenav-content>
 </mat-sidenav-container>

@@ -12,7 +12,13 @@ export class AddVideoComponent implements OnInit {
   constructor(private fb: FormBuilder, private db: AngularFireDatabase) {
     this.addVideoForm = this.fb.group({
       videoId: [[], null],
+      videoUrl: [[], null],
+      videoTitle: [[], null],
+      thumbnailUrl: [[], null],
       notes: [[], null],
+      myNotes: [[], null],
+      notesAuthor: [[], null],
+      addedDate: [[], null],
     });
   }
 
@@ -22,7 +28,13 @@ export class AddVideoComponent implements OnInit {
   save() {
     const object = {
       videoId: this.addVideoForm.get('videoId')!.value,
-      notes: this.addVideoForm.get('notes')!.value
+      videoUrl: this.addVideoForm.get('videoUrl')!.value,
+      videoTitle: this.addVideoForm.get('videoTitle')!.value,
+      thumbnailUrl: this.addVideoForm.get('thumbnailUrl')!.value,
+      notes: this.addVideoForm.get('notes')!.value,
+      myNotes: this.addVideoForm.get('myNotes')!.value,
+      notesAuthor: this.addVideoForm.get('notesAuthor')!.value,
+      addedDate: Date.now()
     };
     const itemRef = this.db.list('MyFavoriteYoutubeVideos');
     itemRef.push(object);

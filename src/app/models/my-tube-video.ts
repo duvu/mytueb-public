@@ -1,7 +1,7 @@
 export interface MyTubeVideo {
     videoId: string;
     videoUrl: string;
-    videoName: string;
+    videoTitle: string;
     thumbnailUrl: string;
     notes: string;
     myNotes: string;

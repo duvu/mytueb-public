@@ -3,12 +3,37 @@
         <div fxLayout="column" fxLayoutGap="16px">
             <mat-form-field appearance="outline">
                 <mat-label i18n="@@videoId">Video Id</mat-label>
-                <input matInput formControlName="videoId" placeholder="Video Id">
+                <input matInput formControlName="videoId" placeholder="Video Id" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@videoUrl">Video URL</mat-label>
+                <input matInput formControlName="videoUrl" placeholder="Video URL">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@videoTitle">Video Title</mat-label>
+                <input matInput formControlName="videoTitle" placeholder="Video Title">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@thumbnailUrl">Thumbnail</mat-label>
+                <input matInput formControlName="thumbnailUrl" placeholder="Thumbnail">
             </mat-form-field>
 
             <mat-form-field appearance="outline">
                 <mat-label i18n="@@notes">Notes</mat-label>
                 <textarea matInput formControlName="notes" rows="10" placeholder="Notes"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@myNotes">My notes</mat-label>
+                <textarea matInput formControlName="myNotes" rows="3" placeholder="My notes"></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@notesAuthor">Note's author</mat-label>
+                <input matInput formControlName="notesAuthor" placeholder="Note's author">
             </mat-form-field>
             <button mat-raised-button color="primary" (click)="save()">Save</button>
         </div>
