@@ -1,0 +1,7 @@
+<form [formGroup]="addVideoForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Video Id</mat-label>
+        <input matInput formControlName="videoId" placeholder="Video Id">
+    </mat-form-field>
+    <button mat-flat-button (click)="save()">Save</button>
+</form>

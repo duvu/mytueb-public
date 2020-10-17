@@ -1,0 +1,16 @@
+.x-footer {
+  height: 64px;
+  background-color: whitesmoke;
+  ul {
+    padding: 16px;
+    display: table;
+    margin: auto;
+    li {
+      list-style: none;
+      a, a:visited {
+        color: gray;
+        text-decoration: none;
+      }
+    }
+  }
+}
