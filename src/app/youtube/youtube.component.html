@@ -1,6 +1,7 @@
 <div fxLayout="row" fxLayoutGap="16px">
     <div fxFlex="70">
         <youtube-player [videoId]="selectedVideoId" (ready)="onPlayerReady($event)"></youtube-player>
+        <p>{{selectedNotes}}</p>
     </div>
     <div fxFlex="30">
         <div *ngFor="let item of items | async">

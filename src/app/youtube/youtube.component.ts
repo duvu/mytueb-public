@@ -11,6 +11,7 @@ export class YoutubeComponent implements OnInit {
   private apiLoaded = false;
   items: Observable<any[]>;
   selectedVideoId: string;
+  selectedNotes: string;
   player: YT.Player;
 
 
@@ -31,10 +32,18 @@ export class YoutubeComponent implements OnInit {
 
   selectVideo(item: any) {
     this.selectedVideoId = item.videoId;
+    this.selectedNotes = item.notes;
+    this.play();
   }
 
   onPlayerReady($event: YT.PlayerEvent) {
     this.player = $event.target;
-    this.player.playVideo();
+    this.play();
+  }
+
+  play() {
+    if (this.player) {
+      this.player.playVideo();
+    }
   }
 }

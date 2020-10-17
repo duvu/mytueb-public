@@ -3,10 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ManagementComponent } from './management.component';
 import {AddVideoComponent} from "./component/add-video/add-video.component";
+import {AngularFireAuthGuard} from "@angular/fire/auth-guard";
 
 const routes: Routes = [
     { path: '', redirectTo: 'c/add-video', pathMatch: 'full' },
-    { path: 'c', component: ManagementComponent,
+    { path: 'c', component: ManagementComponent, canActivate: [AngularFireAuthGuard],
       children: [
         { path: 'add-video', component: AddVideoComponent, pathMatch: 'full' }
       ]

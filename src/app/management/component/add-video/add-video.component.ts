@@ -12,6 +12,7 @@ export class AddVideoComponent implements OnInit {
   constructor(private fb: FormBuilder, private db: AngularFireDatabase) {
     this.addVideoForm = this.fb.group({
       videoId: [[], null],
+      notes: [[], null],
     });
   }
 
@@ -20,8 +21,8 @@ export class AddVideoComponent implements OnInit {
 
   save() {
     const object = {
-      // tslint:disable-next-line:no-non-null-assertion
-      videoId: this.addVideoForm.get('videoId')!.value
+      videoId: this.addVideoForm.get('videoId')!.value,
+      notes: this.addVideoForm.get('notes')!.value
     };
     const itemRef = this.db.list('MyFavoriteYoutubeVideos');
     itemRef.push(object);
