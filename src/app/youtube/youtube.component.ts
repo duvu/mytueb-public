@@ -15,12 +15,17 @@ export class YoutubeComponent implements OnInit {
   selected: MyTubeVideo;
   player: YT.Player;
   iFrameElement: HTMLElement;
-
+  dbRef: string;
 
   constructor(db: AngularFireDatabase, private auth: AngularFireAuth) {
+    this.dbRef = 'MyFavoriteYoutubeVideos';
     this.auth.user.subscribe(user => {
-      const uid = user.uid;
-      db.list<MyTubeVideo>('MyFavoriteYoutubeVideos/' + uid).valueChanges().subscribe(
+      if (user) {
+        const uid = user.uid;
+        this.dbRef += `/${uid}`;
+      }
+
+      db.list<MyTubeVideo>(this.dbRef).valueChanges().subscribe(
           (videoList: MyTubeVideo[]) => {
             this.videos = videoList;
             this.selected = videoList[0];
