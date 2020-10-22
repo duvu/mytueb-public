@@ -20,7 +20,7 @@ export class AddVideoComponent implements OnInit {
       videoId: [{value: '', disabled: true }],
       videoUrl: [[], null],
       videoTitle: [{value: '', disabled: true }],
-      thumbnailUrl: [[], null],
+      thumbnailUrl: [{value: '', disabled: true }],
       notes: [[], null],
       myNotes: [[], null],
       notesAuthor: [[], null],
@@ -32,6 +32,7 @@ export class AddVideoComponent implements OnInit {
     this.addVideoForm.controls.videoUrl.valueChanges.subscribe( url => {
       const videoId = getYouTubeID(url);
       this.addVideoForm.controls.videoId.setValue(videoId);
+      this.addVideoForm.controls.thumbnailUrl.setValue(`https://img.youtube.com/vi/${videoId}/1.jpg`)
 
       getYouTubeTitle(videoId, (err, title) => {
         this.addVideoForm.controls.videoTitle.setValue(title);

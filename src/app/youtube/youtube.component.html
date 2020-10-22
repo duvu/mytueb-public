@@ -1,14 +1,14 @@
 <mat-sidenav-container class="x-container" autosize>
     <mat-sidenav mode="side" opened position="end">
-        <mat-nav-list>
+        <mat-list>
             <mat-list-item *ngFor="let video of videos">
-                <span (click)="selectVideo(video)">{{video?.videoTitle || video?.videoId}}</span>
+                <img src="{{video.thumbnailUrl}}">
+                <span matLine (click)="selectVideo(video)">{{video?.videoTitle || video?.videoId}}</span>
             </mat-list-item>
-        </mat-nav-list>
+        </mat-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
-
         <youtube-player [showBeforeIframeApiLoads]="false"
                 [videoId]="selected?.videoId"
                 (ready)="onPlayerReady($event)" (stateChange)="onChanges($event)"></youtube-player>
@@ -17,3 +17,11 @@
         <p>{{selected?.notes}}</p>
     </mat-sidenav-content>
 </mat-sidenav-container>
+<!--<video-->
+<!--        id="vid1"-->
+<!--        class="video-js vjs-default-skin"-->
+<!--        controls-->
+<!--        autoplay-->
+<!--        width="640" height="264"-->
+<!--        data-setup='{ "techOrder": ["youtube"], "sources": [{ "type": "video/youtube", "src": "https://www.youtube.com/watch?v=xjS6SftYQaQ"}], "youtube": { "ytControls": 2 } }'>-->
+<!--</video>-->
