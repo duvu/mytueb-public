@@ -1,14 +1,13 @@
 <div class="x-container">
     <form [formGroup]="addVideoForm" class="form-add-video">
-        <div fxLayout="column" fxLayoutGap="16px">
-            <mat-form-field appearance="outline">
-                <mat-label i18n="@@videoId">Video Id</mat-label>
-                <input matInput formControlName="videoId" placeholder="Video Id" required>
-            </mat-form-field>
-
+        <div fxLayout="column">
             <mat-form-field appearance="outline">
                 <mat-label i18n="@@videoUrl">Video URL</mat-label>
                 <input matInput formControlName="videoUrl" placeholder="Video URL">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@videoId">Video Id</mat-label>
+                <input matInput formControlName="videoId" placeholder="Video Id" required>
             </mat-form-field>
 
             <mat-form-field appearance="outline">

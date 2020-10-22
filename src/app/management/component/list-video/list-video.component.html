@@ -2,49 +2,49 @@
     <ng-container matColumnDef="videoId">
         <th mat-header-cell *matHeaderCellDef>Video ID</th>
         <td mat-cell *matCellDef="let row">
-            <a href="{{row.videoUrl}}">{{row.videoId}}</a>
+            <a href="{{row.payload.val().videoUrl}}">{{row.payload.val().videoId}}</a>
         </td>
     </ng-container>
 
     <ng-container matColumnDef="videoUrl">
         <th mat-header-cell *matHeaderCellDef>Video URL</th>
-        <td mat-cell *matCellDef="let row">{{row.videoUrl}}</td>
+        <td mat-cell *matCellDef="let row">{{row.payload.val().videoUrl}}</td>
     </ng-container>
 
     <ng-container matColumnDef="videoTitle">
         <th mat-header-cell *matHeaderCellDef>Video Title</th>
-        <td mat-cell *matCellDef="let row">{{row.videoTitle}}</td>
+        <td mat-cell *matCellDef="let row">{{row.payload.val().videoTitle}}</td>
     </ng-container>
 
     <ng-container matColumnDef="thumbnailUrl">
         <th mat-header-cell *matHeaderCellDef>Thumbnail Url</th>
-        <td mat-cell *matCellDef="let row">{{row.thumbnailUrl}}</td>
+        <td mat-cell *matCellDef="let row">{{row.payload.val().thumbnailUrl}}</td>
     </ng-container>
 
     <ng-container matColumnDef="notes">
         <th mat-header-cell *matHeaderCellDef>Notes</th>
-        <td mat-cell *matCellDef="let row">{{row.notes}}</td>
+        <td mat-cell *matCellDef="let row">{{row.payload.val().notes}}</td>
     </ng-container>
 
     <ng-container matColumnDef="myNotes">
         <th mat-header-cell *matHeaderCellDef>My Notes</th>
-        <td mat-cell *matCellDef="let row">{{row.myNotes}}</td>
+        <td mat-cell *matCellDef="let row">{{row.payload.val().myNotes}}</td>
     </ng-container>
 
     <ng-container matColumnDef="notesAuthor">
         <th mat-header-cell *matHeaderCellDef>Notes Author</th>
-        <td mat-cell *matCellDef="let row">{{row.notesAuthor}}</td>
+        <td mat-cell *matCellDef="let row">{{row.payload.val().notesAuthor}}</td>
     </ng-container>
 
     <ng-container matColumnDef="addedDate">
         <th mat-header-cell *matHeaderCellDef>Added Date</th>
-        <td mat-cell *matCellDef="let row">{{row.addedDate | date:'short'}}</td>
+        <td mat-cell *matCellDef="let row">{{row.payload.val().addedDate | date:'short'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Actions</th>
         <td mat-cell *matCellDef="let row">
-            <button mat-icon-button><mat-icon>delete</mat-icon></button>
+            <button mat-icon-button (click)="remove(row)"><mat-icon>delete</mat-icon></button>
             <button mat-icon-button><mat-icon>edit</mat-icon></button>
         </td>
     </ng-container>

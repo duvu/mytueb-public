@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {AngularFireDatabase} from "@angular/fire/database";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {MyTubeVideo} from "../../../models/my-tube-video";
+import getYouTubeID from 'get-youtube-id';
+import * as getYouTubeTitle from 'get-youtube-title';
 
 @Component({
   selector: 'app-add-video',
@@ -15,9 +17,9 @@ export class AddVideoComponent implements OnInit {
               private db: AngularFireDatabase,
               public auth: AngularFireAuth) {
     this.addVideoForm = this.fb.group({
-      videoId: [[], null],
+      videoId: [{value: '', disabled: true }],
       videoUrl: [[], null],
-      videoTitle: [[], null],
+      videoTitle: [{value: '', disabled: true }],
       thumbnailUrl: [[], null],
       notes: [[], null],
       myNotes: [[], null],
@@ -27,6 +29,14 @@ export class AddVideoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addVideoForm.controls.videoUrl.valueChanges.subscribe( url => {
+      const videoId = getYouTubeID(url);
+      this.addVideoForm.controls.videoId.setValue(videoId);
+
+      getYouTubeTitle(videoId, (err, title) => {
+        this.addVideoForm.controls.videoTitle.setValue(title);
+      });
+    });
   }
 
   save() {

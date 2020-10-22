@@ -5,18 +5,15 @@
                 <span (click)="selectVideo(video)">{{video?.videoTitle || video?.videoId}}</span>
             </mat-list-item>
         </mat-nav-list>
-<!--        <div *ngFor="let video of videos">-->
-<!--            <div (click)="selectVideo(video)">-->
-<!--                <span>{{video?.videoTitle || video?.videoId}}</span>-->
-<!--            </div>-->
-<!--        </div>-->
     </mat-sidenav>
+
     <mat-sidenav-content>
+
         <youtube-player [showBeforeIframeApiLoads]="false"
                 [videoId]="selected?.videoId"
                 (ready)="onPlayerReady($event)" (stateChange)="onChanges($event)"></youtube-player>
 
-        <span>{{selected?.videoTitle}}</span>
+        <div>{{selected?.videoTitle}}</div>
         <p>{{selected?.notes}}</p>
     </mat-sidenav-content>
 </mat-sidenav-container>

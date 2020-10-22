@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AngularFireDatabase} from "@angular/fire/database";
 import { findIndex } from 'lodash-es';
 import {MyTubeVideo} from "../models/my-tube-video";
@@ -9,7 +9,7 @@ import {AngularFireAuth} from "@angular/fire/auth";
   templateUrl: './youtube.component.html',
   styleUrls: ['./youtube.component.scss']
 })
-export class YoutubeComponent implements OnInit {
+export class YoutubeComponent implements OnInit, OnDestroy {
   private apiLoaded = false;
   videos: MyTubeVideo[];
   selected: MyTubeVideo;
@@ -41,6 +41,7 @@ export class YoutubeComponent implements OnInit {
       // https://developers.google.com/youtube/iframe_api_reference#Getting_Started
       const tag = document.createElement('script');
       tag.src = 'https://www.youtube.com/iframe_api';
+      tag.id = 'youtube-id';
       document.body.appendChild(tag);
       this.apiLoaded = true;
     }
@@ -85,5 +86,12 @@ export class YoutubeComponent implements OnInit {
       idx = -1;
     }
     return this.videos[idx + 1];
+  }
+
+  ngOnDestroy(): void {
+    console.log('destroying ...');
+    const  el = document.getElementById('youtube-id');
+    document.body.removeChild(el);
+    // document.body.remove
   }
 }

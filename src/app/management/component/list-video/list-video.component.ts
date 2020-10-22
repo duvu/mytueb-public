@@ -12,12 +12,13 @@ import {AngularFireAuth} from "@angular/fire/auth";
   styleUrls: ['./list-video.component.scss']
 })
 export class ListVideoComponent implements OnInit, AfterViewInit {
-  data: Observable<MyTubeVideo[]>;
+  data: Observable<any[]>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   resultsLength = 0;
   isLoadingResults = true;
+  $uid: string;
   displayedColumns: string[] = [
     'videoId',
     'videoTitle',
@@ -37,9 +38,14 @@ export class ListVideoComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     this.auth.user.subscribe(user => {
-      const uid = user.uid;
-      this.data = this.db.list<MyTubeVideo>('MyFavoriteYoutubeVideos/'  + uid).valueChanges();
+      this.$uid = user.uid;
+      this.data = this.db.list<any>('MyFavoriteYoutubeVideos/'  + this.$uid).snapshotChanges();
     });
   }
 
+  remove(row: any) {
+    console.log('Removing', row);
+    console.log('Removing', row.key);
+    this.db.list<MyTubeVideo>('MyFavoriteYoutubeVideos/'  + this.$uid).remove(row.key);
+  }
 }

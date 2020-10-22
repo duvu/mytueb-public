@@ -27,6 +27,8 @@
     "@angular/youtube-player": "^10.2.5",
     "@types/lodash-es": "^4.17.3",
     "firebase": "^7.13.1",
+    "get-youtube-id": "^1.0.1",
+    "get-youtube-title": "^1.0.1",
     "lodash-es": "^4.17.15",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
