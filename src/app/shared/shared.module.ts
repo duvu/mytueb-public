@@ -11,11 +11,12 @@ import {MatListModule} from "@angular/material/list";
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { VideojsComponent } from './videojs/videojs.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [VideojsComponent],
   imports: [
     MatFormFieldModule,
     MatInputModule,
@@ -31,6 +32,7 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatPaginatorModule
   ],
   exports: [
+    VideojsComponent,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
