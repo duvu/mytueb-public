@@ -17,6 +17,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "get-youtube-title",
+              "video.js",
+              "@firebase/auth",
+              "firebase/app"
+            ],
             "outputPath": "dist/mytube",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -139,6 +145,7 @@
   },
   "defaultProject": "mytube",
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "defaultCollection": "@ngrx/schematics"
   }
 }

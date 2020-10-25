@@ -11,6 +11,10 @@ import { HeaderComponent } from './layout/header/header.component';
 import {SharedModule} from "./shared/shared.module";
 import {AngularFireModule} from "@angular/fire";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './stores/root.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {RootModule} from "./stores/root.module";
 
 @NgModule({
   declarations: [
@@ -25,7 +29,10 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     FlexLayoutModule,
     SharedModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    StoreModule.forRoot({}),
+    RootModule,
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
 
   ],
   providers: [],

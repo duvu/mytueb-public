@@ -2,7 +2,7 @@
     <mat-sidenav mode="side" opened position="end">
         <mat-list>
             <mat-list-item *ngFor="let video of videos">
-                <img src="{{video.thumbnailUrl}}">
+                <img matline src="{{video.thumbnailUrl}}">
                 <span matLine (click)="selectVideo(video)">{{video?.videoTitle || video?.videoId}}</span>
             </mat-list-item>
         </mat-list>
@@ -15,9 +15,5 @@
 
         <div>{{selected?.videoTitle}}</div>
         <p>{{selected?.notes}}</p>
-
-        <div>
-            <app-videojs id="vdx" [videoId]="selected?.videoId"></app-videojs>
-        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

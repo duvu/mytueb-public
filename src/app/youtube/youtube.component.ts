@@ -3,6 +3,8 @@ import {AngularFireDatabase} from "@angular/fire/database";
 import { findIndex } from 'lodash-es';
 import {MyTubeVideo} from "../models/my-tube-video";
 import {AngularFireAuth} from "@angular/fire/auth";
+import {YoutubeService} from "./youtube.service";
+import {RootFacade} from "../stores/root.facade";
 
 @Component({
   selector: 'app-youtube',
@@ -17,22 +19,31 @@ export class YoutubeComponent implements OnInit, OnDestroy {
   iFrameElement: HTMLElement;
   dbRef: string;
 
-  constructor(db: AngularFireDatabase, private auth: AngularFireAuth) {
-    this.dbRef = 'MyFavoriteYoutubeVideos';
-    this.auth.user.subscribe(user => {
-      if (user) {
-        const uid = user.uid;
-        this.dbRef += `/${uid}`;
-      }
+  // constructor(db: AngularFireDatabase, private auth: AngularFireAuth) {
+  //   this.dbRef = 'MyFavoriteYoutubeVideos';
+  //   this.auth.user.subscribe(user => {
+  //     if (user) {
+  //       const uid = user.uid;
+  //       this.dbRef += `/${uid}`;
+  //     }
+  //
+  //     db.list<MyTubeVideo>(this.dbRef).valueChanges().subscribe(
+  //         (videoList: MyTubeVideo[]) => {
+  //           this.videos = videoList;
+  //           this.selected = videoList[0];
+  //         }
+  //     );
+  //   });
+  //
+  // }
 
-      db.list<MyTubeVideo>(this.dbRef).valueChanges().subscribe(
-          (videoList: MyTubeVideo[]) => {
-            this.videos = videoList;
-            this.selected = videoList[0];
-          }
-      );
-    });
-
+  constructor(private youtubeService: YoutubeService, private facade: RootFacade) {
+    this.facade.authState$.subscribe(
+        data => {
+          console.log('Abc .. auth-stated changed');
+          this.updateVideoList();
+        }
+    );
   }
 
   ngOnInit(): void {
@@ -50,7 +61,6 @@ export class YoutubeComponent implements OnInit, OnDestroy {
   onPlayerReady($event: YT.PlayerEvent) {
     this.player = $event.target;
     this.iFrameElement = this.player.getIframe();
-    console.log('iFrame', this.iFrameElement);
     this.play();
   }
 
@@ -76,6 +86,8 @@ export class YoutubeComponent implements OnInit, OnDestroy {
     if ($event.data === 0) {
       this.selected = this.next();
       this.play();
+    } else if ($event.data !== 1) {
+      this.play();
     }
   }
 
@@ -92,6 +104,15 @@ export class YoutubeComponent implements OnInit, OnDestroy {
     console.log('destroying ...');
     const  el = document.getElementById('youtube-id');
     document.body.removeChild(el);
-    // document.body.remove
+  }
+
+  private updateVideoList() {
+    this.youtubeService.getVideoList().subscribe(
+        (videoList: MyTubeVideo[]) => {
+          this.videos = videoList;
+          this.selected = videoList[0];
+        }
+    );
+
   }
 }
