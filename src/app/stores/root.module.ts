@@ -1,18 +1,12 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
-import {StoreModule} from "@ngrx/store";
-import {ROOT_FEATURE_KEY,  initialState as rootInitialState,
-    reducers} from './root.reducer';
-
-export function getInitialState() {
-    return rootInitialState;
-}
+import {AuthStateModule} from "./auth/auth-state.module";
 
 @NgModule({
     declarations: [],
     imports: [
         CommonModule,
-        StoreModule.forFeature(ROOT_FEATURE_KEY, reducers, {initialState: getInitialState}),
+        AuthStateModule,
     ]
 })
 export class RootModule {

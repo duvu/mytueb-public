@@ -12,9 +12,9 @@ import {SharedModule} from "./shared/shared.module";
 import {AngularFireModule} from "@angular/fire";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers } from './stores/root.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {RootModule} from "./stores/root.module";
+import {EffectsModule, EffectsRootModule} from "@ngrx/effects";
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import {RootModule} from "./stores/root.module";
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     RootModule,
     !environment.production ? StoreDevtoolsModule.instrument() : [],
 

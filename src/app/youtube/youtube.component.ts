@@ -4,7 +4,8 @@ import { findIndex } from 'lodash-es';
 import {MyTubeVideo} from "../models/my-tube-video";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {YoutubeService} from "./youtube.service";
-import {RootFacade} from "../stores/root.facade";
+import {Store} from "@ngrx/store";
+import {LoginRequestAction} from "../stores/auth/actions";
 
 @Component({
   selector: 'app-youtube',
@@ -37,13 +38,8 @@ export class YoutubeComponent implements OnInit, OnDestroy {
   //
   // }
 
-  constructor(private youtubeService: YoutubeService, private facade: RootFacade) {
-    this.facade.authState$.subscribe(
-        data => {
-          console.log('Abc .. auth-stated changed');
-          this.updateVideoList();
-        }
-    );
+  constructor(private youtubeService: YoutubeService, private store: Store<{}>) {
+
   }
 
   ngOnInit(): void {

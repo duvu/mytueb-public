@@ -1,5 +1,2 @@
-import * as AuthActions from './auth.actions';
-export * from './auth.reducer';
-export * from './auth.effects';
-export * from './auth.state';
-export {AuthActions};
+import * as AuthActions from './actions';
+import * as AuthState from './state';

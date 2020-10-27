@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { YoutubeRoutingModule } from './youtube-routing.module';
 import { YoutubeComponent } from './youtube.component';
 import {YouTubePlayerModule} from "@angular/youtube-player";
-import {FlexModule} from "@angular/flex-layout";
 import {SharedModule} from "../shared/shared.module";
+import {RootModule} from "../stores/root.module";
 
 
 @NgModule({
@@ -14,7 +14,8 @@ import {SharedModule} from "../shared/shared.module";
         CommonModule,
         YoutubeRoutingModule,
         YouTubePlayerModule,
-        SharedModule
+        SharedModule,
+        RootModule
     ]
 })
 export class YoutubeModule { }

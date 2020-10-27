@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/auth";
 import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {RootFacade} from "../../stores/root.facade";
-import {auth as authx} from "firebase";
+import {auth as authx, User} from "firebase";
 import {Router} from "@angular/router";
+import {Store} from "@ngrx/store";
+import {
+  LoginFailureAction,
+  LoginRequestAction,
+  LoginSuccessAction,
+  LogoutRequestAction, LogoutSuccessAction
+} from "../../stores/auth/actions";
+import {selectAuthStateModel} from "../../stores/auth/selectors";
 
 @Component({
   selector: 'app-header',
@@ -12,29 +18,36 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+  authState$ = this.store.select(selectAuthStateModel);
+
   constructor(public auth: AngularFireAuth,
               private router: Router,
-              private facade: RootFacade) {
+              private store: Store<{}>) {
 
   }
 
   ngOnInit(): void {
+    this.authState$.subscribe(data => console.log('XData', data));
   }
 
   logout() {
-    this.auth.signOut().finally(() => {
-      console.log('Logged Out');
-      this.facade.setAuthState(false);
+    return this.auth.signOut().then(r => {
+      this.store.dispatch(new LogoutSuccessAction());
     });
 
   }
 
   login() {
-    this.auth.signInWithPopup(new authx.GoogleAuthProvider());
-    this.auth.user.subscribe(data => {
-      console.log('logged in');
-      this.facade.setAuthState(true);
-    });
+    return this.auth.signInWithPopup(new authx.GoogleAuthProvider()).then(
+        userCred => {
+          console.log('User cred', userCred);
+          this.store.dispatch(new LoginSuccessAction({user: userCred.user}));
+        },
+        (reason => {
+          this.store.dispatch( new LoginFailureAction(reason));
+        })
+    );
   }
 
 

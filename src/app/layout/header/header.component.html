@@ -2,12 +2,14 @@
     <button mat-icon-button routerLink="/"><mat-icon>home</mat-icon></button>
     <span class="spacer"></span>
 
-    <div *ngIf="auth.user | async as user; else showLogin">
-        <button mat-button (click)="addCategory()">Add Category</button>
-        <button mat-button routerLink="/man/c/list">Videos</button>
-        <button mat-button (click)="logout()">Logout</button>
+    <div *ngIf="authState$ | async as auth">
+        <div *ngIf="auth.user; else showLogin">
+            <button mat-button (click)="addCategory()">Add Category</button>
+            <button mat-button routerLink="/man/c/list">Videos</button>
+            <button mat-button (click)="logout()">Logout</button>
+        </div>
+        <ng-template #showLogin>
+            <button mat-button (click)="login()">Login</button>
+        </ng-template>
     </div>
-    <ng-template #showLogin>
-        <button mat-button (click)="login()">Login</button>
-    </ng-template>
 </mat-toolbar>

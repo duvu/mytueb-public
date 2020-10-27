@@ -1,10 +1,10 @@
 import {createFeatureSelector, createSelector} from "@ngrx/store";
-import {ROOT_FEATURE_KEY, RootState} from "./root.reducer";
+import { State} from "./state";
 
-const getRootState = createFeatureSelector<RootState>(ROOT_FEATURE_KEY);
+const getRootState = createFeatureSelector<State>("ROOT_FEATURE_KEY");
 export const getAuthenticate = createSelector(
     getRootState,
-    (state: RootState) => state.auth.authenticated
+    (state: State) => state.auth.authenticated
 );
 
 export const rootQuery = {
