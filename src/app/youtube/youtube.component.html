@@ -9,10 +9,11 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <youtube-player [showBeforeIframeApiLoads]="false"
-                [videoId]="selected?.videoId"
-                (ready)="onPlayerReady($event)" (stateChange)="onChanges($event)"></youtube-player>
-
+        <div class="video-screen">
+            <youtube-player [showBeforeIframeApiLoads]="false"
+                            [videoId]="selected?.videoId"
+                            (ready)="onPlayerReady($event)" (stateChange)="onChanges($event)"></youtube-player>
+        </div>
         <div>{{selected?.videoTitle}}</div>
         <p>{{selected?.notes}}</p>
     </mat-sidenav-content>
