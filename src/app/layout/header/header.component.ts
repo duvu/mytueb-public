@@ -1,8 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AngularFireAuth} from "@angular/fire/auth";
-import {Observable} from "rxjs";
-import {auth as authx, User} from "firebase";
-import {Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {
   LoginFailureAction,
@@ -12,6 +8,10 @@ import {
 } from "../../stores/auth/actions";
 import {selectAuthStateModel} from "../../stores/auth/selectors";
 import {XUser} from "../../models/x-user";
+import {LoadingService} from "../../shared/loading.service";
+import {MatDialog} from "@angular/material/dialog";
+import {AddVideoComponent} from "../../shared/component/add-video/add-video.component";
+import {AddCategoryComponent} from "../../shared/component/add-category/add-category.component";
 
 @Component({
   selector: 'app-header',
@@ -22,12 +22,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   user: XUser;
   authState$ = this.store.select(selectAuthStateModel);
 
-  constructor(public auth: AngularFireAuth,
-              private router: Router,
-              private store: Store<{}>) {
+  constructor(private loadingService: LoadingService, private store: Store<{}>, private dialog: MatDialog) {
+
     this.authState$.subscribe(data => {
       console.log('Header', data);
       this.user = data.user;
+      if (data.isLoading) {
+        loadingService.show();
+      } else {
+        loadingService.hide();
+      }
     });
   }
 
@@ -39,7 +43,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    // return this.auth.signOut();
     this.store.dispatch(new LogoutRequestAction());
   }
 
@@ -47,8 +50,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.store.dispatch(new LoginRequestAction());
   }
 
-
   addCategory() {
+    this.dialog.open(AddCategoryComponent, {
+      width: '500px'
+    });
+  }
 
+  addVideo() {
+    this.dialog.open(AddVideoComponent, {
+      width: '500px'
+    });
   }
 }

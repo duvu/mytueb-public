@@ -20,9 +20,10 @@
             "allowedCommonJsDependencies": [
               "get-youtube-title",
               "video.js",
+              "firebase",
+              "firebase/app",
               "@firebase/auth",
-              "@firebase/database",
-              "firebase/app"
+              "@firebase/database"
             ],
             "outputPath": "dist/mytube",
             "index": "src/index.html",

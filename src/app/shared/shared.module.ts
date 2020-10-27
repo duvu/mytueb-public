@@ -13,11 +13,16 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { VideojsComponent } from './videojs/videojs.component';
 import {MatMenuModule} from "@angular/material/menu";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { SpinnerComponent } from './component/spinner/spinner.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import { AddVideoComponent } from './component/add-video/add-video.component';
+import { AddCategoryComponent } from './component/add-category/add-category.component';
 
 
 
 @NgModule({
-  declarations: [VideojsComponent],
+  declarations: [VideojsComponent, SpinnerComponent, AddVideoComponent, AddCategoryComponent],
   imports: [
     MatFormFieldModule,
     MatInputModule,
@@ -31,10 +36,13 @@ import {MatMenuModule} from "@angular/material/menu";
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   exports: [
     VideojsComponent,
+    SpinnerComponent,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
@@ -47,7 +55,9 @@ import {MatMenuModule} from "@angular/material/menu";
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

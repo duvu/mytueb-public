@@ -9,6 +9,7 @@ import {LoadUserRequestAction, LoginRequestAction} from "../stores/auth/actions"
 import {selectAuthStateModel} from "../stores/auth/selectors";
 import {selectYoutubeStateModel} from "../stores/youtube/selectors";
 import {LoadVideosRequestAction} from "../stores/youtube/actions";
+import {LoadingService} from "../shared/loading.service";
 
 @Component({
   selector: 'app-youtube',
@@ -26,11 +27,17 @@ export class YoutubeComponent implements OnInit, OnDestroy {
   // authState$ = this.store.select(selectAuthStateModel);
   youtubeState$ = this.store.select(selectYoutubeStateModel);
 
-  constructor(private youtubeService: YoutubeService, private store: Store<{}>) {
+  constructor(private loadingService: LoadingService, private store: Store<{}>) {
     this.youtubeState$.subscribe(data => {
       console.log('Youtube state', data);
       this.videos = data.videos;
       this.selected = this.videos ? this.videos[0] : null;
+
+      if (data.isLoading) {
+        loadingService.show();
+      } else {
+        loadingService.hide();
+      }
     });
   }
 

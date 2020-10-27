@@ -4,14 +4,25 @@
 
     <div *ngIf="user; else showLogin">
 
-        <button mat-button (click)="addCategory()">Add Category</button>
-        <button mat-button routerLink="/man/c/list">Videos</button>
+        <button mat-button (click)="addCategory()">
+            <mat-icon>library_add</mat-icon>
+            <span>Add Category</span>
+        </button>
+        <button mat-button (click)="addVideo()">
+            <mat-icon>library_add</mat-icon>
+            <span>Add Video</span>
+        </button>
+
 
         <button mat-button [matMenuTriggerFor]="menu" aria-label="profile and logout">
             <mat-icon>person_outline</mat-icon>
             <span>{{user.displayName}}</span>
         </button>
         <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink="/man/c/list">
+                <mat-icon>video_library</mat-icon>
+                <span>Videos</span>
+            </button>
             <button mat-menu-item>
                 <mat-icon>person_outline</mat-icon>
                 <span>Profile</span>
@@ -24,6 +35,9 @@
         </mat-menu>
     </div>
     <ng-template #showLogin>
-        <button mat-button (click)="login()">Login</button>
+        <button mat-button (click)="login()">
+            <mat-icon>login</mat-icon>
+            <span>Login</span>
+        </button>
     </ng-template>
 </mat-toolbar>
