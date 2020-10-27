@@ -40,7 +40,10 @@ export class LoginFailureAction implements Action {
 
 export class LoginSuccessAction {
     readonly type: string = ActionTypes.LOGIN_SUCCESS;
-    constructor(public payload: {user: any}) {
+    public payload: { user: any };
+
+    constructor(payload: {user: any}) {
+        this.payload = payload;
     }
 }
 

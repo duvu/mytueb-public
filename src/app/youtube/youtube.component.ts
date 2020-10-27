@@ -6,6 +6,7 @@ import {AngularFireAuth} from "@angular/fire/auth";
 import {YoutubeService} from "./youtube.service";
 import {Store} from "@ngrx/store";
 import {LoginRequestAction} from "../stores/auth/actions";
+import {selectAuthStateModel} from "../stores/auth/selectors";
 
 @Component({
   selector: 'app-youtube',
@@ -20,26 +21,9 @@ export class YoutubeComponent implements OnInit, OnDestroy {
   iFrameElement: HTMLElement;
   dbRef: string;
 
-  // constructor(db: AngularFireDatabase, private auth: AngularFireAuth) {
-  //   this.dbRef = 'MyFavoriteYoutubeVideos';
-  //   this.auth.user.subscribe(user => {
-  //     if (user) {
-  //       const uid = user.uid;
-  //       this.dbRef += `/${uid}`;
-  //     }
-  //
-  //     db.list<MyTubeVideo>(this.dbRef).valueChanges().subscribe(
-  //         (videoList: MyTubeVideo[]) => {
-  //           this.videos = videoList;
-  //           this.selected = videoList[0];
-  //         }
-  //     );
-  //   });
-  //
-  // }
+  authState$ = this.store.select(selectAuthStateModel);
 
   constructor(private youtubeService: YoutubeService, private store: Store<{}>) {
-
   }
 
   ngOnInit(): void {

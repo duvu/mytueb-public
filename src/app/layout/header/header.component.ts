@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AngularFireAuth} from "@angular/fire/auth";
 import {Observable} from "rxjs";
 import {auth as authx, User} from "firebase";
@@ -11,15 +11,16 @@ import {
   LogoutRequestAction, LogoutSuccessAction
 } from "../../stores/auth/actions";
 import {selectAuthStateModel} from "../../stores/auth/selectors";
+import {XUser} from "../../models/x-user";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
 
-  authState$ = this.store.select(selectAuthStateModel);
+  authState$ = this.store.select(selectAuthStateModel).pipe();
 
   constructor(public auth: AngularFireAuth,
               private router: Router,
@@ -27,27 +28,33 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+
+    }
+
   ngOnInit(): void {
-    this.authState$.subscribe(data => console.log('XData', data));
   }
 
   logout() {
-    return this.auth.signOut().then(r => {
-      this.store.dispatch(new LogoutSuccessAction());
-    });
-
+    // return this.auth.signOut();
+    this.store.dispatch(new LogoutRequestAction());
   }
 
   login() {
-    return this.auth.signInWithPopup(new authx.GoogleAuthProvider()).then(
-        userCred => {
-          console.log('User cred', userCred);
-          this.store.dispatch(new LoginSuccessAction({user: userCred.user}));
-        },
-        (reason => {
-          this.store.dispatch( new LoginFailureAction(reason));
-        })
-    );
+    this.store.dispatch(new LoginRequestAction());
+    // return this.auth.signInWithPopup(new authx.GoogleAuthProvider()).then(
+    //     userCred => {
+    //       const xUser = {
+    //         uid: userCred.user.uid,
+    //         displayName: userCred.user.displayName
+    //       } as XUser;
+    //       this.store.dispatch(new LoginSuccessAction({user: xUser}));
+    //       console.log('User cred', userCred);
+    //     },
+    //     (reason => {
+    //       this.store.dispatch( new LoginFailureAction(reason));
+    //     })
+    // );
   }
 
 

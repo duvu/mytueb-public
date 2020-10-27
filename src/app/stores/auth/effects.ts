@@ -8,41 +8,24 @@ import {auth as authx, User} from "firebase";
 import {Store} from "@ngrx/store";
 import {selectAuthStateModel} from "./selectors";
 import {State} from "./state";
+import {XUser} from "../../models/x-user";
 
 @Injectable()
 export class Effects {
-    constructor(private actions$: Actions, private auth: AngularFireAuth, private store: Store<State>) {
+    constructor(private actions$: Actions,
+                private auth: AngularFireAuth,
+                private store: Store<State>) {}
 
-    }
-    // loadRequestEffect$ = createEffect(() => this.actions$.pipe(
-    //     ofType(ActionTypes.LOGIN_REQUEST),
-    //     mergeMap(() => this.auth.user.pipe(
-    //         map(user => {
-    //             const xUser = {
-    //                 uid: user.uid,
-    //                 displayName: user.displayName
-    //             };
-    //             return new LoginSuccessAction({user: xUser});
-    //         }),
-    //         catchError(() => EMPTY)
-    //     ))
-    // ));
-
-    // getUser$ = createEffect(() => this.actions$.pipe(
-    //     ofType(ActionTypes.LOGIN_SUCCESS),
-    // ))
     loadLoginRequest$ = createEffect(() => this.actions$.pipe(
         ofType(ActionTypes.LOGIN_REQUEST),
-        withLatestFrom(this.store.select(selectAuthStateModel)),
-        switchMap((lastAuthState) => {
-            if (lastAuthState) {
-                console.log('Last AuthState', lastAuthState);
-            }
-
+        switchMap(() => {
             return this.auth.signInWithPopup(new authx.GoogleAuthProvider()).then(
                 userCred => {
-                    console.log('User cred', userCred);
-                    return new LoginSuccessAction({user: userCred.user});
+                    const xUser = {
+                        uid: userCred.user.uid,
+                        displayName: userCred.user.displayName
+                    } as XUser;
+                    return new LoginSuccessAction({user: xUser});
                 },
                 (reason => {
                     return new LoginFailureAction(reason);
@@ -54,11 +37,18 @@ export class Effects {
     executeLogoutRequest$ = createEffect(() => {
         return this.actions$.pipe(
             ofType(ActionTypes.LOGOUT_REQUEST),
-            mergeMap(() => {
+            switchMap(() => {
                 return this.auth.signOut().then(r => {
                     return new LogoutSuccessAction();
                 });
             })
         );
     });
+
+    // loadLoginSuccess$ = createEffect(() => this.actions$.pipe(
+    //     ofType(ActionTypes.LOGIN_SUCCESS),
+    //     mergeMap(() => {
+    //         return
+    //     })
+    // ))
 }

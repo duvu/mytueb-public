@@ -1,9 +1,10 @@
 import {initialState, State} from "./state";
 import {XActions, ActionTypes} from "./actions";
+import {Action} from "@ngrx/store";
 
 export const authFeatureKey = 'auth';
 
-export function authReducer(state = initialState, action: XActions): State {
+export function reducer(state = initialState, action: Action): State {
     switch (action.type) {
         case ActionTypes.LOGOUT_REQUEST:
             return {
@@ -33,6 +34,7 @@ export function authReducer(state = initialState, action: XActions): State {
                 isLoading: false
             };
         case ActionTypes.LOGIN_SUCCESS:
+            console.log('Login Success');
             return {
                 ...state,
                 error: null,

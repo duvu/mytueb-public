@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {StoreModule} from "@ngrx/store";
-import {authFeatureKey, authReducer} from "./reducer";
+import {authFeatureKey, reducer} from "./reducer";
 import {initialState as authInitialState} from "./state";
 import {EffectsModule} from "@ngrx/effects";
 import {Effects} from "./effects";
@@ -12,7 +12,7 @@ import {Effects} from "./effects";
   declarations: [],
   imports: [
     CommonModule,
-    StoreModule.forFeature(authFeatureKey, authReducer, {initialState: authInitialState}),
+    StoreModule.forFeature(authFeatureKey, reducer),
     EffectsModule.forFeature([Effects])
   ]
 })
