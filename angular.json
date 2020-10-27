@@ -21,6 +21,7 @@
               "get-youtube-title",
               "video.js",
               "@firebase/auth",
+              "@firebase/database",
               "firebase/app"
             ],
             "outputPath": "dist/mytube",
