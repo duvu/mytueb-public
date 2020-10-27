@@ -12,6 +12,7 @@ import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { VideojsComponent } from './videojs/videojs.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 
 
@@ -29,7 +30,8 @@ import { VideojsComponent } from './videojs/videojs.component';
     MatListModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule
   ],
   exports: [
     VideojsComponent,
@@ -44,7 +46,8 @@ import { VideojsComponent } from './videojs/videojs.component';
     MatListModule,
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule
   ]
 })
 export class SharedModule { }

@@ -75,8 +75,6 @@ export class YoutubeComponent implements OnInit, OnDestroy {
     if ($event.data === 0) {
       this.selected = this.next();
       this.play();
-    } else if ($event.data !== 1) {
-      this.play();
     }
   }
 

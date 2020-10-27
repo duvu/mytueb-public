@@ -19,9 +19,13 @@ export class Effects {
         ofType(ActionTypes.LOAD_USER_REQUEST),
         switchMap(() => {
             return this.auth.authState.pipe(
-                map(user => {
-                    if (user && user.uid) {
-                        return new LoadVideosRequestAction({uid: user.uid});
+                map(xuser => {
+                    if (xuser && xuser.uid) {
+                        const xUser = {
+                            uid: xuser.uid,
+                            displayName: xuser.displayName
+                        } as XUser;
+                        return new LoginSuccessAction({user: xUser});
                     } else {
                         return new LoadVideosRequestAction({uid: null});
                     }

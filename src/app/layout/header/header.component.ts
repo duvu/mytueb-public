@@ -19,13 +19,16 @@ import {XUser} from "../../models/x-user";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-
-  authState$ = this.store.select(selectAuthStateModel).pipe();
+  user: XUser;
+  authState$ = this.store.select(selectAuthStateModel);
 
   constructor(public auth: AngularFireAuth,
               private router: Router,
               private store: Store<{}>) {
-
+    this.authState$.subscribe(data => {
+      console.log('Header', data);
+      this.user = data.user;
+    });
   }
 
   ngOnDestroy(): void {
@@ -42,19 +45,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   login() {
     this.store.dispatch(new LoginRequestAction());
-    // return this.auth.signInWithPopup(new authx.GoogleAuthProvider()).then(
-    //     userCred => {
-    //       const xUser = {
-    //         uid: userCred.user.uid,
-    //         displayName: userCred.user.displayName
-    //       } as XUser;
-    //       this.store.dispatch(new LoginSuccessAction({user: xUser}));
-    //       console.log('User cred', userCred);
-    //     },
-    //     (reason => {
-    //       this.store.dispatch( new LoginFailureAction(reason));
-    //     })
-    // );
   }
 
 
