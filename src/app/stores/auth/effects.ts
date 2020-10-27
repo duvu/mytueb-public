@@ -3,19 +3,32 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {ActionTypes, LoginFailureAction, LoginSuccessAction, LogoutSuccessAction} from "./actions";
 import {catchError, map, mergeMap, switchMap, withLatestFrom} from "rxjs/operators";
-import {EMPTY} from "rxjs";
+import {EMPTY, of} from "rxjs";
 import {auth as authx, User} from "firebase";
 import {Store} from "@ngrx/store";
 import {selectAuthStateModel} from "./selectors";
 import {State} from "./state";
 import {XUser} from "../../models/x-user";
+import {LoadVideosRequestAction} from "../youtube/actions";
 
 @Injectable()
 export class Effects {
     constructor(private actions$: Actions,
-                private auth: AngularFireAuth,
-                private store: Store<State>) {}
-
+                private auth: AngularFireAuth) {}
+    loadUserRequest$ = createEffect(() => this.actions$.pipe(
+        ofType(ActionTypes.LOAD_USER_REQUEST),
+        switchMap(() => {
+            return this.auth.authState.pipe(
+                map(user => {
+                    if (user && user.uid) {
+                        return new LoadVideosRequestAction({uid: user.uid});
+                    } else {
+                        return new LoadVideosRequestAction({uid: null});
+                    }
+                })
+            );
+        })
+    ));
     loadLoginRequest$ = createEffect(() => this.actions$.pipe(
         ofType(ActionTypes.LOGIN_REQUEST),
         switchMap(() => {
@@ -45,10 +58,18 @@ export class Effects {
         );
     });
 
-    // loadLoginSuccess$ = createEffect(() => this.actions$.pipe(
-    //     ofType(ActionTypes.LOGIN_SUCCESS),
-    //     mergeMap(() => {
-    //         return
-    //     })
-    // ))
+    loadLoginSuccess$ = createEffect(() => this.actions$.pipe(
+        ofType(ActionTypes.LOGIN_SUCCESS),
+        switchMap( (action: LoginSuccessAction) => {
+            const xUid = action.payload.user.uid;
+            return of(new LoadVideosRequestAction({uid: xUid}));
+        })
+    ));
+
+    loadLogoutSuccess$ = createEffect(() => this.actions$.pipe(
+       ofType(ActionTypes.LOGOUT_SUCCESS),
+       switchMap((action: LogoutSuccessAction) => {
+           return of(new LoadVideosRequestAction({uid: null}));
+       })
+    ));
 }

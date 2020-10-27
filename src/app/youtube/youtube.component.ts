@@ -5,8 +5,10 @@ import {MyTubeVideo} from "../models/my-tube-video";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {YoutubeService} from "./youtube.service";
 import {Store} from "@ngrx/store";
-import {LoginRequestAction} from "../stores/auth/actions";
+import {LoadUserRequestAction, LoginRequestAction} from "../stores/auth/actions";
 import {selectAuthStateModel} from "../stores/auth/selectors";
+import {selectYoutubeStateModel} from "../stores/youtube/selectors";
+import {LoadVideosRequestAction} from "../stores/youtube/actions";
 
 @Component({
   selector: 'app-youtube',
@@ -21,9 +23,15 @@ export class YoutubeComponent implements OnInit, OnDestroy {
   iFrameElement: HTMLElement;
   dbRef: string;
 
-  authState$ = this.store.select(selectAuthStateModel);
+  // authState$ = this.store.select(selectAuthStateModel);
+  youtubeState$ = this.store.select(selectYoutubeStateModel);
 
   constructor(private youtubeService: YoutubeService, private store: Store<{}>) {
+    this.youtubeState$.subscribe(data => {
+      console.log('Youtube state', data);
+      this.videos = data.videos;
+      this.selected = this.videos ? this.videos[0] : null;
+    });
   }
 
   ngOnInit(): void {
@@ -36,6 +44,7 @@ export class YoutubeComponent implements OnInit, OnDestroy {
       document.body.appendChild(tag);
       this.apiLoaded = true;
     }
+    this.store.dispatch(new LoadUserRequestAction());
   }
 
   onPlayerReady($event: YT.PlayerEvent) {
@@ -84,15 +93,5 @@ export class YoutubeComponent implements OnInit, OnDestroy {
     console.log('destroying ...');
     const  el = document.getElementById('youtube-id');
     document.body.removeChild(el);
-  }
-
-  private updateVideoList() {
-    this.youtubeService.getVideoList().subscribe(
-        (videoList: MyTubeVideo[]) => {
-          this.videos = videoList;
-          this.selected = videoList[0];
-        }
-    );
-
   }
 }

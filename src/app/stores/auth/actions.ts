@@ -7,7 +7,13 @@ export enum ActionTypes {
     LOGIN_SUCCESS = '[Authenticate] Log In Success',
 
     LOGOUT_REQUEST = '[Authenticate] Log Out Request',
-    LOGOUT_SUCCESS = '[Authenticate] Log Out Success'
+    LOGOUT_SUCCESS = '[Authenticate] Log Out Success',
+
+    LOAD_USER_REQUEST = '[Authenticate] Load User Request',
+}
+
+export class LoadUserRequestAction implements Action {
+    readonly type: string = ActionTypes.LOAD_USER_REQUEST;
 }
 
 export class LogoutRequestAction implements Action {
@@ -40,14 +46,15 @@ export class LoginFailureAction implements Action {
 
 export class LoginSuccessAction {
     readonly type: string = ActionTypes.LOGIN_SUCCESS;
-    public payload: { user: any };
+    public payload: { user: XUser };
 
-    constructor(payload: {user: any}) {
+    constructor(payload: {user: XUser}) {
         this.payload = payload;
     }
 }
 
 export type XActions =
+    LoadUserRequestAction |
     LoginRequestAction |
     LoginFailureAction |
     LoginSuccessAction |
