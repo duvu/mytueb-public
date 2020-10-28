@@ -2,12 +2,9 @@ import {Injectable} from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {ActionTypes, LoginFailureAction, LoginSuccessAction, LogoutSuccessAction} from "./actions";
-import {catchError, map, mergeMap, switchMap, withLatestFrom} from "rxjs/operators";
+import {map, switchMap} from "rxjs/operators";
 import {EMPTY, of} from "rxjs";
-import {auth as authx, User} from "firebase";
-import {Store} from "@ngrx/store";
-import {selectAuthStateModel} from "./selectors";
-import {State} from "./state";
+import {auth as authx} from "firebase";
 import {XUser} from "../../models/x-user";
 import {LoadVideosRequestAction} from "../youtube/actions";
 
