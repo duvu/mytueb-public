@@ -18,6 +18,9 @@ import { SpinnerComponent } from './component/spinner/spinner.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AddVideoComponent } from './component/add-video/add-video.component';
 import { AddCategoryComponent } from './component/add-category/add-category.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AngularFireModule} from "@angular/fire";
+import {environment} from "../../environments/environment";
 
 
 
@@ -38,7 +41,12 @@ import { AddCategoryComponent } from './component/add-category/add-category.comp
     MatPaginatorModule,
     MatMenuModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+
+    AngularFireModule.initializeApp(environment.firebase),
+    ReactiveFormsModule,
+    FormsModule
+
   ],
   exports: [
     VideojsComponent,

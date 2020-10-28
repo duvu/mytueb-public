@@ -51,6 +51,7 @@ export class AddVideoComponent implements OnInit {
       notesAuthor: this.addVideoForm.get('notesAuthor')!.value,
       addedDate: Date.now()
     } as MyTubeVideo;
+
     this.auth.user.subscribe(user => {
       const uid = user.uid;
       this.saveToUserDB(uid, object);

@@ -1,1 +1,24 @@
-<p>add-video works!</p>
+<div class="x-container">
+    <form [formGroup]="addVideoForm" class="form-add-video">
+        <div fxLayout="column">
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@videoTitle">Video Title</mat-label>
+                <input matInput formControlName="videoTitle" placeholder="Video Title">
+                <button mat-icon-button matSuffix><mat-icon>refresh</mat-icon></button>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@videoUrl">Video URL</mat-label>
+                <input matInput formControlName="videoUrl" placeholder="Video URL">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label i18n="@@notes">Notes</mat-label>
+                <textarea matInput formControlName="notes" rows="10" placeholder="Notes"></textarea>
+            </mat-form-field>
+            <div class="x-footer">
+                <button mat-raised-button color="primary" (click)="save()">Save</button>
+                <button mat-raised-button color="primary" (click)="cancel()">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+

@@ -3,9 +3,9 @@ import {createFeatureSelector, createSelector} from "@ngrx/store";
 import {authFeatureKey} from "./reducer";
 import {XUser} from "../../models/x-user";
 
-const getError = (state: State): any => state.error;
-const getIsLoading = (state: State): any => state.isLoading;
-const getUser = (state: State): any => state.user;
+const getError = (state: State): string => state.error;
+const getIsLoading = (state: State): boolean => state.isLoading;
+const getUser = (state: State): XUser => state.user;
 
 export const selectAuthState = createFeatureSelector(authFeatureKey);
 export const selectAuthError = createSelector(selectAuthState, getError);

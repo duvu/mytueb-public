@@ -28,6 +28,15 @@ export function reducer(state = initialState, action: XActions): State {
                 // @ts-ignore
                 error: action.payload.error
             };
+
+        case ActionTypes.ADD_VIDEO_REQUEST:
+        case ActionTypes.ADD_VIDEO_FAILURE:
+        case ActionTypes.ADD_VIDEO_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                error: null
+            }
         default:
             return state;
     }

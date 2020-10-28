@@ -3,7 +3,7 @@ import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {AngularFireAuth} from "@angular/fire/auth";
 import {ActionTypes, LoginFailureAction, LoginSuccessAction, LogoutSuccessAction} from "./actions";
 import {map, switchMap} from "rxjs/operators";
-import {EMPTY, of} from "rxjs";
+import {of} from "rxjs";
 import {auth as authx} from "firebase";
 import {XUser} from "../../models/x-user";
 import {LoadVideosRequestAction} from "../youtube/actions";
